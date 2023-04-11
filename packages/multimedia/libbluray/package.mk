@@ -3,8 +3,8 @@
 # Copyright (C) 2018-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="libbluray"
-PKG_VERSION="1.2.1"
-PKG_SHA256="5223e83f7988ea2cc860b5cadcaf9cf971087b0c80ca7b60cc17c8300cae36ec"
+PKG_VERSION="1.3.4"
+PKG_SHA256="478ffd68a0f5dde8ef6ca989b7f035b5a0a22c599142e5cd3ff7b03bbebe5f2b"
 PKG_LICENSE="LGPL"
 PKG_SITE="https://www.videolan.org/developers/libbluray.html"
 PKG_URL="http://download.videolan.org/pub/videolan/libbluray/${PKG_VERSION}/${PKG_NAME}-${PKG_VERSION}.tar.bz2"
@@ -35,13 +35,11 @@ PKG_CONFIGURE_OPTS_TARGET="--disable-werror \
                            --disable-doxygen-html \
                            --disable-doxygen-ps \
                            --disable-doxygen-pdf \
-                           --enable-bdjava \
                            --with-freetype \
                            --with-fontconfig \
                            --with-libxml2 \
-                           --with-libudfread \
                            --with-gnu-ld"
-                           
-pre_configure_target() {
-  export CFLAGS="$CFLAGS -D_GNU_SOURCE"
+
+post_configure_target() {
+  libtool_remove_rpath libtool
 }

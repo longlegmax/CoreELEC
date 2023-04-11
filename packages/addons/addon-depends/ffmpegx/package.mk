@@ -7,9 +7,9 @@ PKG_SHA256="6c5b6c195e61534766a0b5fe16acc919170c883362612816d0a1c7f4f947006e"
 PKG_LICENSE="LGPLv2.1+"
 PKG_SITE="https://ffmpeg.org"
 PKG_URL="https://ffmpeg.org/releases/ffmpeg-${PKG_VERSION}.tar.xz"
-PKG_DEPENDS_TARGET="toolchain aom bzip2 gnutls lame libvorbis opus x264 zlib"
+PKG_DEPENDS_TARGET="toolchain aom bzip2 openssl lame libvorbis opus x264 zlib"
 PKG_LONGDESC="FFmpegx is an complete FFmpeg build to support encoding and decoding."
-PKG_BUILD_FLAGS="-gold -sysroot"
+PKG_BUILD_FLAGS="-sysroot"
 
 # Dependencies
 get_graphicdrivers
@@ -17,7 +17,7 @@ get_graphicdrivers
 if [ "${TARGET_ARCH}" = "x86_64" ]; then
   PKG_DEPENDS_TARGET+=" nasm:host x265"
 
-  if listcontains "${GRAPHIC_DRIVERS}" "(iris|i915|i965)"; then
+  if listcontains "${GRAPHIC_DRIVERS}" "(crocus|i915|iris)"; then
     PKG_DEPENDS_TARGET+=" intel-vaapi-driver"
   fi
 fi
@@ -123,6 +123,7 @@ configure_target() {
     \
     `#Licensing options` \
     --enable-gpl \
+    --enable-version3 \
     \
     `#Documentation options` \
     --disable-doc \
@@ -160,8 +161,8 @@ configure_target() {
     --extra-ldflags="${LDFLAGS}" \
     --extra-libs="${PKG_FFMPEG_LIBS}" \
     --enable-pic \
-    --enable-gnutls \
-    --disable-openssl \
+    --disable-gnutls \
+    --enable-openssl \
     \
     `#Advanced options` \
     --disable-hardcoded-tables \

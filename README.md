@@ -1,9 +1,4 @@
 # CoreELEC for Phicomm N1
-1. Only installation on USB drivers is verified and supported.
-2. Auto update is disabled.
-3. Added ipset module in kernel
-4. Added BD-J menu patch from vpeter: https://discourse.coreelec.org/t/java-for-bd-j-menus/554
-5. Show subtitles by default.
 
 # Upgrade
 Put the update package(CoreELEC-Amlogic-ng.arm-xxx.tar) in /storage/.update/, then reboot.

@@ -8,7 +8,7 @@ PKG_VERSION=""
 PKG_LICENSE="GPL"
 PKG_SITE="http://www.openelec.tv"
 PKG_URL=""
-PKG_DEPENDS_INIT="libc:init busybox:init splash-image:init util-linux:init e2fsprogs:init dosfstools:init terminus-font:init bkeymaps:init"
+PKG_DEPENDS_INIT="libc:init busybox:init splash-image:init util-linux:init e2fsprogs:init dosfstools:init terminus-font:init bkeymaps:init fakeroot:host"
 PKG_DEPENDS_TARGET="toolchain initramfs:init"
 PKG_SECTION="virtual"
 PKG_LONGDESC="Metapackage for installing initramfs"
@@ -26,7 +26,7 @@ for i in ${PKG_DEPENDS_INIT}; do
 done
 
 post_install() {
-  #if [ "$BUILD_ANDROID_BOOTIMG" = "yes" ]; then
+  if [ "$BUILD_ANDROID_BOOTIMG" = "yes" ]; then
   ( 
     cd $BUILD/initramfs
 
@@ -38,5 +38,5 @@ post_install() {
     fakeroot -- sh -c \
       "mkdir -p dev; mknod -m 600 dev/console c 5 1; find . | cpio -H newc -ov -R 0:0 > $BUILD/image/initramfs.cpio"
   )
-  #fi
+  fi
 } 

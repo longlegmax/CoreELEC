@@ -17,8 +17,8 @@ PKG_PATCH_DIRS="$LINUX"
 
 case "$LINUX" in
   amlogic-4.9)
-    PKG_VERSION="f0f6f8833853aff0957785247e6b802e6da4a9d0"
-    PKG_SHA256="4338d30d572ebbe9b4a5d5e29d61392d06f4c6912d066eba064098ff94c77940"
+    PKG_VERSION="e08147ebea86531618114d87d91200932b7ec41c"
+    PKG_SHA256="c93f157159ed53c3edf73ef6c35fde7b60b72036166712a6e284642b22dbd962"
     PKG_URL="https://github.com/CoreELEC/linux-amlogic/archive/$PKG_VERSION.tar.gz"
     PKG_SOURCE_NAME="linux-$LINUX-$PKG_VERSION.tar.gz"
     PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET aml-dtbtools:host"
@@ -30,8 +30,8 @@ esac
 PKG_KERNEL_CFG_FILE=$(kernel_config_path) || die
 
 if [ -n "$KERNEL_TOOLCHAIN" ]; then
-  PKG_DEPENDS_HOST="$PKG_DEPENDS_HOST gcc-arm-$KERNEL_TOOLCHAIN:host"
-  PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET gcc-arm-$KERNEL_TOOLCHAIN:host"
+  PKG_DEPENDS_HOST="$PKG_DEPENDS_HOST gcc-$KERNEL_TOOLCHAIN:host"
+  PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET gcc-$KERNEL_TOOLCHAIN:host"
   HEADERS_ARCH=$TARGET_ARCH
 fi
 
@@ -233,7 +233,7 @@ make_target() {
 
   if [ "$BUILD_ANDROID_BOOTIMG" = "yes" ]; then
     find_file_path bootloader/mkbootimg && source ${FOUND_PATH}
-    mv -f arch/$TARGET_KERNEL_ARCH/boot/boot.img arch/$TARGET_KERNEL_ARCH/boot/$KERNEL_TARGET
+#    mv -f arch/$TARGET_KERNEL_ARCH/boot/boot.img arch/$TARGET_KERNEL_ARCH/boot/$KERNEL_TARGET
   fi
 
   if [ "$PKG_BUILD_PERF" = "yes" ] ; then

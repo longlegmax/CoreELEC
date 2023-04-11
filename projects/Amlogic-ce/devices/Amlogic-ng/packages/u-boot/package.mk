@@ -43,7 +43,7 @@ makeinstall_target() {
     unset PKG_UBOOTBIN
     unset PKG_CHAINUBOOTBIN
     find_file_path bootloader/${PKG_SUBDEVICE}_boot.ini && cp -av ${FOUND_PATH} $INSTALL/usr/share/bootloader
-    
+
     # Phicommon_N1
     for src in $INSTALL/usr/share/bootloader/*_boot.ini ; do
       sed -e "s/@BOOT_LABEL@/$DISTRO_BOOTLABEL/g" \
@@ -53,7 +53,7 @@ makeinstall_target() {
           -i "$src"
     done
     
-    if [ "${PKG_SUBDEVICE}" = "Odroid_N2" -o "${PKG_SUBDEVICE}" = "Odroid_C4" -o "${PKG_SUBDEVICE}" = "Odroid_HC4" -o "${PKG_SUBDEVICE:0:10}" = "Radxa_Zero" ]; then
+    if [ "${PKG_SUBDEVICE:0:9}" = "Odroid_N2" -o "${PKG_SUBDEVICE}" = "Odroid_C4" -o "${PKG_SUBDEVICE}" = "Odroid_HC4" -o "${PKG_SUBDEVICE:0:10}" = "Radxa_Zero" ]; then
       if [ "${PKG_SUBDEVICE}" != "Odroid_HC4" ]; then
         PKG_UBOOTBIN=$(get_build_dir u-boot-${PKG_SUBDEVICE})/sd_fuse/u-boot.bin.sd.bin
       else
@@ -75,8 +75,4 @@ makeinstall_target() {
   find_file_path bootloader/config.ini && cp -av ${FOUND_PATH} $INSTALL/usr/share/bootloader
     sed -e "s/@PROJECT@/${PKG_CANUPDATE}/g" \
         -i $INSTALL/usr/share/bootloader/canupdate.sh
-  # Copy Hardkernel boot logo
-  find_file_path splash/hk-boot-logo-1080.bmp.gz && cp -av ${FOUND_PATH} $INSTALL/usr/share/bootloader
-	# Copy Radxa boot logo
-  find_file_path splash/radxa-boot-logo-1080.bmp.gz && cp -av ${FOUND_PATH} $INSTALL/usr/share/bootloader
 }

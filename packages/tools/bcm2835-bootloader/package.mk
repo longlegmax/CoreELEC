@@ -3,8 +3,8 @@
 # Copyright (C) 2017-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="bcm2835-bootloader"
-PKG_VERSION="53f4941b7bb2512e07fa7c6baec29cbee4889848"
-PKG_SHA256="bb61b6baec79e2d0b4a4a63d62064c5a6d1e9baf7fd7bfb6810454893ab37e76"
+PKG_VERSION="489d3e2d025f5035491004f50d58cfe9690e3976"
+PKG_SHA256="ac2f526fd17c6b15dd6e67aceffb93c5ca7afa7cc1e757fdd06123d318126b99"
 PKG_ARCH="arm aarch64"
 PKG_LICENSE="nonfree"
 PKG_SITE="http://www.broadcom.com"
@@ -29,5 +29,6 @@ makeinstall_target() {
     find_file_path bootloader/canupdate.sh && cp -PRv ${FOUND_PATH} ${INSTALL}/usr/share/bootloader
 
     find_file_path config/distroconfig.txt ${PKG_DIR}/files/distroconfig.txt && cp -PRv ${FOUND_PATH} ${INSTALL}/usr/share/bootloader
+    find_file_path config/distroconfig-composite.txt ${PKG_DIR}/files/distroconfig-composite.txt && cp -PRv ${FOUND_PATH} ${INSTALL}/usr/share/bootloader
     find_file_path config/config.txt ${PKG_DIR}/files/config.txt && cp -PRv ${FOUND_PATH} ${INSTALL}/usr/share/bootloader
 }

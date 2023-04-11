@@ -3,12 +3,12 @@
 # Copyright (C) 2018-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="systemd"
-PKG_VERSION="247.9"
-PKG_SHA256="629b8c895efa000b921092c7a565680c66dcd0ec74ed11cb2dd2b6701492675d"
+PKG_VERSION="252.6"
+PKG_SHA256="5f0b391f7e481f9ce0798515f34e85963990d42a27f9f80fc9e7321610b69784"
 PKG_LICENSE="LGPL2.1+"
 PKG_SITE="http://www.freedesktop.org/wiki/Software/systemd"
 PKG_URL="https://github.com/systemd/systemd-stable/archive/v${PKG_VERSION}.tar.gz"
-PKG_DEPENDS_TARGET="toolchain libcap kmod util-linux entropy libidn2 wait-time-sync"
+PKG_DEPENDS_TARGET="toolchain libcap kmod util-linux entropy libidn2 wait-time-sync Jinja2:host"
 PKG_LONGDESC="A system and session manager for Linux, compatible with SysV and LSB init scripts."
 
 PKG_MESON_OPTS_TARGET="--libdir=/usr/lib \
@@ -79,7 +79,6 @@ PKG_MESON_OPTS_TARGET="--libdir=/usr/lib \
                        -Dhwdb=true \
                        -Drfkill=false \
                        -Dldconfig=false \
-                       -Defi=false \
                        -Dtpm=false \
                        -Dima=false \
                        -Dsmack=false \
@@ -101,6 +100,12 @@ PKG_MESON_OPTS_TARGET="--libdir=/usr/lib \
                        -Dumount-path=/usr/bin/umount \
                        -Ddebug-tty=${DEBUG_TTY} \
                        -Dversion-tag=${PKG_VERSION}"
+
+if [ "${PROJECT}" = "Generic" ]; then
+  PKG_MESON_OPTS_TARGET+=" -Defi=true"
+else
+  PKG_MESON_OPTS_TARGET+=" -Defi=false"
+fi
 
 pre_configure_target() {
   export TARGET_CFLAGS="${TARGET_CFLAGS} -fno-schedule-insns -fno-schedule-insns2 -Wno-format-truncation"
@@ -140,6 +145,12 @@ post_makeinstall_target() {
   safe_remove ${INSTALL}/usr/lib/systemd/systemd-update-done
   safe_remove ${INSTALL}/usr/lib/systemd/system/systemd-update-done.service
   safe_remove ${INSTALL}/usr/lib/systemd/system/*.target.wants/systemd-update-done.service
+  #
+  safe_remove ${INSTALL}/usr/lib/systemd/system/dev-hugepages.mount
+  safe_remove ${INSTALL}/usr/lib/systemd/system/*.target.wants/dev-hugepages.mount
+  #
+  safe_remove ${INSTALL}/usr/lib/systemd/system/systemd-journald-audit.socket
+  safe_remove ${INSTALL}/usr/lib/systemd/system/*.target.wants/systemd-journald-audit.socket
 
   # adjust systemd-hwdb-update (we have read-only /etc).
   sed '/^ConditionNeedsUpdate=.*$/d' -i ${INSTALL}/usr/lib/systemd/system/systemd-hwdb-update.service
@@ -183,9 +194,11 @@ post_makeinstall_target() {
 
   # tune journald.conf
   sed -e "s,^.*Compress=.*$,Compress=no,g" -i ${INSTALL}/etc/systemd/journald.conf
-  sed -e "s,^.*SplitMode=.*$,SplitMode=none,g" -i ${INSTALL}/etc/systemd/journald.conf
+  sed -e "s,^.*MaxFileSec=.*$,MaxFileSec=0,g" -i ${INSTALL}/etc/systemd/journald.conf
+  sed -e "s,^.*MaxRetentionSec=.*$,MaxRetentionSec=0,g" -i ${INSTALL}/etc/systemd/journald.conf
   sed -e "s,^.*RuntimeMaxUse=.*$,RuntimeMaxUse=2M,g" -i ${INSTALL}/etc/systemd/journald.conf
   sed -e "s,^.*RuntimeMaxFileSize=.*$,RuntimeMaxFileSize=128K,g" -i ${INSTALL}/etc/systemd/journald.conf
+  sed -e "s,^.*SplitMode=.*$,SplitMode=none,g" -i ${INSTALL}/etc/systemd/journald.conf
   sed -e "s,^.*SystemMaxUse=.*$,SystemMaxUse=10M,g" -i ${INSTALL}/etc/systemd/journald.conf
 
   # tune logind.conf
@@ -256,7 +269,7 @@ post_install() {
   add_group systemd-network 193
   add_user systemd-network x 193 193 "systemd-network" "/" "/bin/sh"
 
-  add_group audio 63
+  add_group audio 63 pipewire
   add_group cdrom 11
   add_group dialout 18
   add_group disk 6
@@ -267,7 +280,7 @@ post_install() {
   add_group render 12
   add_group tape 33
   add_group tty 5
-  add_group video 39
+  add_group video 39 pipewire
   add_group utmp 22
   add_group input 199
 

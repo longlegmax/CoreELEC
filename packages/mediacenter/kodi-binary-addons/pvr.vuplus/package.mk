@@ -3,9 +3,9 @@
 # Copyright (C) 2018-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="pvr.vuplus"
-PKG_VERSION="19.0.1-Matrix"
-PKG_SHA256="cd5658c5e40d42bc02e5c99b47c28cb24bdda4b6dd49029131ff147405d4c8a8"
-PKG_REV="1"
+PKG_VERSION="20.5.1-Nexus"
+PKG_SHA256="467363d7015d426f05fac3f514222d7ec03aa4b61a0935fd7f00e95e9c443514"
+PKG_REV="2"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
 PKG_SITE="https://github.com/kodi-pvr/pvr.vuplus"

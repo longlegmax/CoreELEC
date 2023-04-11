@@ -3,8 +3,8 @@
 # Copyright (C) 2018-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="curl"
-PKG_VERSION="7.78.0"
-PKG_SHA256="be42766d5664a739c3974ee3dfbbcbe978a4ccb1fe628bb1d9b59ac79e445fb5"
+PKG_VERSION="7.86.0"
+PKG_SHA256="2d61116e5f485581f6d59865377df4463f2e788677ac43222b496d4e49fb627b"
 PKG_LICENSE="MIT"
 PKG_SITE="https://curl.haxx.se"
 PKG_URL="https://curl.haxx.se/download/${PKG_NAME}-${PKG_VERSION}.tar.xz"
@@ -69,6 +69,10 @@ PKG_CONFIGURE_OPTS_TARGET="ac_cv_lib_rtmp_RTMP_Init=yes \
                            --with-librtmp \
                            --with-libidn2 \
                            --with-nghttp2"
+
+post_configure_target() {
+  libtool_remove_rpath libtool
+}
 
 post_makeinstall_target() {
   rm -rf ${INSTALL}/usr/share/zsh

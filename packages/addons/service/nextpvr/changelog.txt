@@ -1,5 +1,4 @@
-101
-- Fix for variables that aren't initialized by Kodi
+2
+Fix nextpvr-downloader script
 
-100
-- Initial commit
+initial release

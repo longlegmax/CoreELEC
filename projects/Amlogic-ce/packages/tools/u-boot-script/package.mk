@@ -21,5 +21,5 @@ make_target() {
 
 makeinstall_target() {
   mkdir -p $INSTALL/usr/share/bootloader
-    cp -a $PKG_BUILD/s905_autoscript $INSTALL/usr/share/bootloader/
+    cp -a $PKG_BUILD/* $INSTALL/usr/share/bootloader/
 }
