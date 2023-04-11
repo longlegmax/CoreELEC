@@ -46,7 +46,7 @@ jobs:
       - name: Upload ARTIFACT
         uses: actions/upload-artifact@v3
         with:
-          name: CoreELEC-19.5rc3
+          name: CoreELEC-20.1
           path: |
             target/*Phicomm_N1.img*
           retention-days: 5
