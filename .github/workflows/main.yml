@@ -41,7 +41,7 @@ jobs:
           key: CoreELEC-Phicomm-N1-sources-${{ runner.os }}-${{ hashFiles('./mkn1') }}
 
       - name: Run build
-        run: ./mkn1
+        run: BUILDER_NAME=Longleg CUSTOM_VERSION=20.1_230411 make image
       
       - name: Upload ARTIFACT
         uses: actions/upload-artifact@v3
