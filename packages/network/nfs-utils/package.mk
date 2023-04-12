@@ -45,7 +45,7 @@ pre_configure_host() {
     --without-tcp-wrappers"
 
   # for Ubuntu 22 with libntirpc-dev package installed
-  CFLAGS+=" -I/usr/include/tirpc"
+  # CFLAGS+=" -I/usr/include/tirpc"
 }
 
 pre_configure_target() {
