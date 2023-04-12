@@ -7,6 +7,10 @@ PKG_SITE="https://coreelec.org"
 PKG_DEPENDS_TARGET="toolchain"
 PKG_LONGDESC="Tool to install CoreELEC on internal eMMC"
 PKG_TOOLCHAIN="manual"
+PKG_VERSION="3143cf2ab3dec9f47f822a3c5adbaf8640bc65da"
+PKG_SHA256="493a809c95c3021c87597fb77ea9e9c39d174b5d5c4f81c40810ceebc71ce1ba"
+PKG_SOURCE_NAME="${PKG_NAME}-${ARCH}-${PKG_VERSION}.tar.xz"
+PKG_URL="https://sources.coreelec.org/${PKG_SOURCE_NAME}"
 
 case "${DEVICE}" in
   Amlogic-ng)
