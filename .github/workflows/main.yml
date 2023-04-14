@@ -41,7 +41,7 @@ jobs:
           key: CoreELEC-Phicomm-N1-sources-${{ runner.os }}-${{ hashFiles('./github/workfilows/main.yml') }}
 
       - name: Run build
-        run: DEVICE=amlogic-ng BUILDER_NAME=Longleg CUSTOM_VERSION=20.1_230411 make image
+        run: DEVICE=Amlogic-ng BUILDER_NAME=Longleg CUSTOM_VERSION=20.1_230411 make image
       
       - name: Upload ARTIFACT
         uses: actions/upload-artifact@v3
