@@ -43,7 +43,7 @@
     KERNEL_UBOOT_EXTRA_TARGET=""
 
   # Build Android kernel image using mkbootimg
-    BUILD_ANDROID_BOOTIMG="yes"
+    BUILD_ANDROID_BOOTIMG="no"
 
   # Additional options to be passed to Android mkbootimg
     ANDROID_BOOTIMG_OPTIONS="--base 0x0 --kernel_offset 0x1080000"
