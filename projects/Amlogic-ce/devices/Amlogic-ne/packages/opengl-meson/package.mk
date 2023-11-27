@@ -7,14 +7,23 @@ PKG_SHA256="06e03211fd5766e55e201e6d13b7fd0f4c543c04b803a554eec565ab7649f488"
 PKG_LICENSE="nonfree"
 PKG_SITE="http://openlinux.amlogic.com:8000/download/ARM/filesystem/"
 PKG_URL="https://github.com/CoreELEC/opengl-meson/archive/${PKG_VERSION}.tar.gz"
-PKG_DEPENDS_TARGET="toolchain libdrm tee_preload_fw"
+PKG_DEPENDS_TARGET="toolchain libdrm opentee_linuxdriver"
 PKG_LONGDESC="OpenGL ES pre-compiled libraries for Mali GPUs found in Amlogic Meson SoCs."
 PKG_TOOLCHAIN="manual"
 
 makeinstall_target() {
+  case "${ARCH}" in
+    arm)
+      lib_arch="eabihf"
+      ;;
+    aarch64)
+      lib_arch="arm64"
+      ;;
+  esac
+
   mkdir -p ${INSTALL}/usr/lib
-    cp -p lib/eabihf/gondul/r25p0/fbdev/libMali.so ${INSTALL}/usr/lib/libMali.gondul.so
-    cp -p lib/eabihf/dvalin/r25p0/fbdev/libMali.so ${INSTALL}/usr/lib/libMali.dvalin.so
+    cp -p lib/${lib_arch}/gondul/r25p0/fbdev/libMali.so ${INSTALL}/usr/lib/libMali.gondul.so
+    cp -p lib/${lib_arch}/dvalin/r25p0/fbdev/libMali.so ${INSTALL}/usr/lib/libMali.dvalin.so
 
     ln -sf /var/lib/libMali.so ${INSTALL}/usr/lib/libMali.so
 
