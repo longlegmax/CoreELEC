@@ -1,2 +1,2 @@
 #!/bin/bash
-BUILDER_NAME=Longleg CUSTOM_VERSION=20.2_231127 make image
+BUILDER_NAME=Longleg CUSTOM_VERSION=20.2_231127 DEVICE=Amlogic-ng make image

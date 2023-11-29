@@ -90,7 +90,7 @@ for arg in $(cat /proc/cmdline); do
           *radxa_zero2)
             SUBDEVICE="Radxa_Zero2"
             ;;
-	  *meson_gxl_s905d_phicomm_n1)
+          *meson_gxl_s905d_phicomm_n1)
             SUBDEVICE="Phicomm_N1"
             ;;
         esac
