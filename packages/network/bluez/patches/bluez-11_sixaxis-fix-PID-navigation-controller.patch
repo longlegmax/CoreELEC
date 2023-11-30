@@ -17,7 +17,7 @@ diff --git a/plugins/sixaxis.c b/plugins/sixaxis.c
 index 939fed7..f6baea7 100644
 --- a/plugins/sixaxis.c
 +++ b/plugins/sixaxis.c
-@@ -364,7 +364,13 @@ static bool setup_device(int fd, const char *sysfs_path,
+@@ -354,7 +354,13 @@ static bool setup_device(int fd, const char *sysfs_path,
  	info("sixaxis: setting up new device");
  
  	btd_device_device_set_name(device, cp->name);
